@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кошик | SHELYST FLOWERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="cart-page">
+        <div class="container">
+          <h1 class="cart-page__title">Кошик</h1>
+          <div id="cart-root"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+      function renderCart() {
+        const root = document.getElementById("cart-root");
+        const items = window.CART.getItems();
+
+        if (!items.length) {
+          root.innerHTML = `
+            <div class="cart-empty">
+              <svg class="cart-empty__icon" width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+                <path d="M9 9h6.75L24 39.6a4.5 4.5 0 0 0 4.35 3.15h27a4.5 4.5 0 0 0 4.35-3.15L65.25 22.5H22.5" stroke="#c98698" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="31.5" cy="58.5" r="3.375" stroke="#c98698" stroke-width="2.5"/>
+                <circle cx="56.25" cy="58.5" r="3.375" stroke="#c98698" stroke-width="2.5"/>
+              </svg>
+              <p class="cart-empty__title">Кошик порожній</p>
+              <p class="cart-empty__hint">Додайте товари з каталогу</p>
+              <a class="cart-empty__btn" href="../index.html">До каталогу</a>
+            </div>
+          `;
+          return;
+        }
+
+        const total = window.CART.getTotal();
+        const count = window.CART.getCount();
+        const telegramUrl = CONTACT_TELEGRAM_URL + "?text=" + encodeURIComponent(window.CART.toTelegramMessage());
+
+        const itemsHTML = items.map((item) => {
+          const lineTotal = item.price * (item.qty || 1);
+          const imgMarkup = item.image
+            ? `<img src="${item.image}" alt="${item.name}" />`
+            : `<div class="cart-item__img-placeholder"></div>`;
+          return `
+            <div class="cart-item" data-cart-item="${item.id}">
+              <div class="cart-item__media">${imgMarkup}</div>
+              <div class="cart-item__body">
+                <p class="cart-item__name">${item.name}</p>
+                <p class="cart-item__unit-price">${formatPrice(item.price)} / шт</p>
+              </div>
+              <div class="cart-item__qty">
+                <button class="cart-qty__btn" type="button" data-qty-dec="${item.id}" aria-label="Зменшити кількість">−</button>
+                <span class="cart-qty__val">${item.qty || 1}</span>
+                <button class="cart-qty__btn" type="button" data-qty-inc="${item.id}" aria-label="Збільшити кількість">+</button>
+              </div>
+              <div class="cart-item__total">${formatPrice(lineTotal)}</div>
+              <button class="cart-item__remove" type="button" data-cart-remove="${item.id}" aria-label="Видалити товар">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1 1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          `;
+        }).join("");
+
+        root.innerHTML = `
+          <div class="cart-layout">
+            <div class="cart-items">
+              ${itemsHTML}
+            </div>
+            <div class="cart-summary">
+              <div class="cart-summary__row">
+                <span>Товарів у кошику:</span>
+                <span>${count} шт</span>
+              </div>
+              <div class="cart-summary__row cart-summary__total-row">
+                <span>Разом:</span>
+                <strong>${formatPrice(total)}</strong>
+              </div>
+              <a class="cart-summary__checkout" href="${telegramUrl}" target="_blank" rel="noreferrer">
+                Оформити через Telegram
+              </a>
+              <p class="cart-summary__note">
+                Менеджер підтвердить замовлення в чаті та узгодить деталі доставки
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Event delegation for cart interactions
+      document.addEventListener("click", (e) => {
+        const decBtn = e.target.closest("[data-qty-dec]");
+        if (decBtn) {
+          const id = decBtn.dataset.qtyDec;
+          const item = window.CART.getItems().find((i) => i.id === id);
+          if (item) window.CART.setQty(id, (item.qty || 1) - 1);
+          renderCart();
+          return;
+        }
+
+        const incBtn = e.target.closest("[data-qty-inc]");
+        if (incBtn) {
+          const id = incBtn.dataset.qtyInc;
+          const item = window.CART.getItems().find((i) => i.id === id);
+          if (item) window.CART.setQty(id, (item.qty || 1) + 1);
+          renderCart();
+          return;
+        }
+
+        const removeBtn = e.target.closest("[data-cart-remove]");
+        if (removeBtn) {
+          window.CART.remove(removeBtn.dataset.cartRemove);
+          renderCart();
+          return;
+        }
+      });
+
+      // Re-render when Firestore syncs the cart on login
+      window.addEventListener("cart:updated", renderCart);
+
+      renderCart();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вхід | (назва вашого магазину)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="auth-page">
+        <div class="auth-card">
+          <a class="auth-brand" href="../index.html">(назва вашого магазину)</a>
+          <p class="auth-subtitle">Увійдіть або створіть акаунт</p>
+
+          <div class="auth-tabs" role="tablist">
+            <button class="auth-tab is-active" data-tab="login" type="button" role="tab">Вхід</button>
+            <button class="auth-tab" data-tab="register" type="button" role="tab">Реєстрація</button>
+          </div>
+
+          <div id="auth-error" class="auth-error" hidden></div>
+
+          <form class="auth-form" id="login-form" novalidate>
+            <div class="auth-field">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+            <div class="auth-field">
+              <label for="login-password">Пароль</label>
+              <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password" />
+            </div>
+            <button class="auth-submit" type="submit">
+              <span class="auth-submit__label">Увійти</span>
+              <span class="auth-submit__loader" hidden aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <form class="auth-form" id="register-form" hidden novalidate>
+            <div class="auth-field">
+              <label for="reg-name">Ім'я та прізвище</label>
+              <input type="text" id="reg-name" placeholder="Олена Коваль" required autocomplete="name" />
+            </div>
+            <div class="auth-field">
+              <label for="reg-phone">Телефон</label>
+              <input type="tel" id="reg-phone" placeholder="+380 97 000 00 00" autocomplete="tel" />
+            </div>
+            <div class="auth-field">
+              <label for="reg-email">Email</label>
+              <input type="email" id="reg-email" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+            <div class="auth-field">
+              <label for="reg-password">Пароль</label>
+              <input type="password" id="reg-password" placeholder="Мінімум 6 символів" required autocomplete="new-password" minlength="6" />
+            </div>
+            <button class="auth-submit" type="submit">
+              <span class="auth-submit__label">Зареєструватись</span>
+              <span class="auth-submit__loader" hidden aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+      const AUTH_ERRORS = {
+        "auth/user-not-found": "Користувача з таким email не знайдено.",
+        "auth/wrong-password": "Невірний пароль.",
+        "auth/invalid-credential": "Невірний email або пароль.",
+        "auth/email-already-in-use": "Цей email вже використовується.",
+        "auth/weak-password": "Пароль занадто простий (мінімум 6 символів).",
+        "auth/invalid-email": "Невірний формат email.",
+        "auth/too-many-requests": "Забагато спроб. Спробуйте пізніше.",
+        "shelyst/profile-write-failed": "Акаунт створено, але не вдалося зберегти профіль у базі. Перевірте правила Firestore у консолі Firebase і спробуйте ще раз.",
+      };
+
+      function initAuthPage() {
+        const tabs = document.querySelectorAll(".auth-tab");
+        const loginForm = document.getElementById("login-form");
+        const registerForm = document.getElementById("register-form");
+        const errorEl = document.getElementById("auth-error");
+
+        const showError = (msg) => { errorEl.textContent = msg; errorEl.hidden = false; };
+        const hideError = () => { errorEl.hidden = true; };
+
+        const setLoading = (form, on) => {
+          const label = form.querySelector(".auth-submit__label");
+          const loader = form.querySelector(".auth-submit__loader");
+          form.querySelector(".auth-submit").disabled = on;
+          label.hidden = on;
+          loader.hidden = !on;
+        };
+
+        // Redirect if already logged in
+        window.FB.auth.onAuthStateChanged((user) => {
+          if (user) window.location.replace("cabinet.html");
+        });
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("is-active"));
+            tab.classList.add("is-active");
+            hideError();
+            const isLogin = tab.dataset.tab === "login";
+            loginForm.hidden = !isLogin;
+            registerForm.hidden = isLogin;
+          });
+        });
+
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideError();
+          setLoading(loginForm, true);
+          const email = document.getElementById("login-email").value.trim();
+          const password = document.getElementById("login-password").value;
+          try {
+            await window.FB.signIn(email, password);
+            window.location.replace("cabinet.html");
+          } catch (err) {
+            showError(AUTH_ERRORS[err.code] || "Помилка. Спробуйте ще раз.");
+            setLoading(loginForm, false);
+          }
+        });
+
+        registerForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideError();
+          setLoading(registerForm, true);
+          const name = document.getElementById("reg-name").value.trim();
+          const phone = document.getElementById("reg-phone").value.trim();
+          const email = document.getElementById("reg-email").value.trim();
+          const password = document.getElementById("reg-password").value;
+          try {
+            await window.FB.signUp(email, password, name, phone);
+            window.location.replace("cabinet.html");
+          } catch (err) {
+            showError(AUTH_ERRORS[err.code] || "Помилка. Спробуйте ще раз.");
+            setLoading(registerForm, false);
+          }
+        });
+      }
+
+      if (window.FB) {
+        initAuthPage();
+      } else {
+        window.addEventListener("fb:ready", initAuthPage);
+      }
+    </script>
+  </body>
+</html>

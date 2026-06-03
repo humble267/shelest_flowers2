@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Замовлення прийнято | (назва вашого магазину)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body class="content-page">
+    <main class="content-page__section">
+      <div class="container">
+        <article class="content-page__card order-success">
+          <span class="order-success__badge" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+              <path d="M12 20.5l5.5 5.5L28 14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <p class="content-page__eyebrow">(назва вашого магазину)</p>
+          <h1>Дякуємо за замовлення!</h1>
+          <p class="content-page__lead" id="order-success-text">
+            Ваше замовлення прийнято в роботу. Найближчим часом менеджер
+            звʼяжеться з вами для підтвердження деталей доставки.
+          </p>
+          <a class="content-page__cta" href="../index.html">Повернутися до каталогу</a>
+        </article>
+      </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+      // Очищаємо кошик після успішної оплати
+      if (window.CART && typeof window.CART.clear === "function") {
+        window.CART.clear();
+      }
+
+      const orderNo = new URLSearchParams(window.location.search).get("order");
+      if (orderNo) {
+        const lead = document.getElementById("order-success-text");
+        if (lead) {
+          lead.innerHTML =
+            "Замовлення <strong>" +
+            orderNo.replace(/[<>&]/g, "") +
+            "</strong> успішно оплачено. Найближчим часом менеджер звʼяжеться з вами для підтвердження деталей доставки.";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHELYST FLOWERS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="loader-active">
+
+    <div id="pageLoader" class="page-loader" aria-hidden="true">
+      <div class="page-loader__inner">
+        <svg class="page-loader__bloom" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(40,40)">
+            <ellipse rx="5.5" ry="14" fill="#d9a3b0" opacity="0.9"/>
+            <ellipse rx="5.5" ry="14" fill="#d9a3b0" opacity="0.78" transform="rotate(72)"/>
+            <ellipse rx="5.5" ry="14" fill="#d9a3b0" opacity="0.65" transform="rotate(144)"/>
+            <ellipse rx="5.5" ry="14" fill="#d9a3b0" opacity="0.78" transform="rotate(216)"/>
+            <ellipse rx="5.5" ry="14" fill="#d9a3b0" opacity="0.88" transform="rotate(288)"/>
+            <circle r="5" fill="#c98698"/>
+          </g>
+        </svg>
+        <p class="page-loader__phrase">Оберіть квіти — подаруйте момент</p>
+        <div class="page-loader__track" aria-hidden="true">
+          <div class="page-loader__fill"></div>
+        </div>
+      </div>
+    </div>
+
+      <main>
+        <section class="hero-slider" aria-label="Головні пропозиції">
+          <div class="container">
+            <div class="hero-slider__viewport">
+              <article class="hero-slide is-active">
+                <div class="hero-slide__content">
+                  <p class="hero-slide__eyebrow">SHELYST FLOWERS</p>
+                  <h1>Онлайн вітрина авторських букетів</h1>
+                  <p>
+                    Обирайте ніжні композиції для особливих моментів та
+                    переходьте до каталогу букетів у кілька натискань.
+                  </p>
+                  <a class="hero-slide__button" href="pages/bukety.html">
+                    Перейти до каталогу
+                  </a>
+                </div>
+                <div class="hero-slide__media">
+                  <img
+                    src="images/slide1.jpg"
+                    alt="Великий рожево-білий букет"
+                  />
+                </div>
+              </article>
+
+              <article class="hero-slide">
+                <div class="hero-slide__content">
+                  <p class="hero-slide__eyebrow">SHELYST FLOWERS</p>
+                  <h2>Квіти, які хочеться подарувати сьогодні</h2>
+                  <p>
+                    Легкі пастельні відтінки, святковий настрій і добірка
+                    композицій для вашого ідеального вибору.
+                  </p>
+                  <a class="hero-slide__button" href="pages/bukety.html">
+                    Каталог букетів
+                  </a>
+                </div>
+                <div class="hero-slide__media">
+                  <img
+                    src="images/slide2.jpg"
+                    alt="Кошики з ніжними гортензіями"
+                  />
+                </div>
+              </article>
+            </div>
+
+            <div class="hero-slider__dots" aria-label="Перемикання слайдів">
+              <button class="is-active" type="button" aria-label="Слайд 1"></button>
+              <button type="button" aria-label="Слайд 2"></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="categories-showcase" aria-labelledby="categories-title">
+          <div class="container">
+            <div class="section-head section-head--centered">
+              <h2 id="categories-title">Основні категорії</h2>
+            </div>
+
+            <div class="categories-panels">
+
+            <div class="categories-panel">
+              <p class="categories-showcase__sub">Категорії квітів</p>
+              <div class="categories-grid">
+              <a class="category-card" href="pages/bukety.html">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/cat-letters.jpg')"
+                  aria-label="Усі букети"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Усі букети</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/bukety.html?filter=mono-bouquets">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/cat-exclusive.jpg')"
+                  aria-label="Моно букети"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Моно букети</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/troyandy.html">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/cat-mixed.jpg')"
+                  aria-label="Усі квіти"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Усі квіти</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/bukety.html?filter=mixed-bouquets">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/cat-basket.jpg')"
+                  aria-label="Збірні букети"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Збірні букети</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/aktsiyni.html">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/cat-box.jpg')"
+                  aria-label="Акційні"
+                ></div>
+                <div class="category-card__footer">
+                  <span class="category-card__title-sale">Акційні</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+            </div>
+
+            </div><!-- /panel квіти -->
+
+            <div class="categories-panel">
+              <p class="categories-showcase__sub">М'які іграшки</p>
+            <div class="categories-grid">
+              <a class="category-card" href="pages/igrashky.html">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/toy-all.jpg')"
+                  aria-label="Усі іграшки"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Усі іграшки</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/igrashky.html?filter=L">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/toy-large.jpg')"
+                  aria-label="L-size іграшки"
+                ></div>
+                <div class="category-card__footer">
+                  <span>L-size іграшки</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/igrashky.html?filter=M">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/toy-medium.jpg')"
+                  aria-label="M-size іграшки"
+                ></div>
+                <div class="category-card__footer">
+                  <span>M-size іграшки</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/igrashky.html?filter=S">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/toy-small.jpg')"
+                  aria-label="S-size іграшки"
+                ></div>
+                <div class="category-card__footer">
+                  <span>S-size іграшки</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/igrashky.html?filter=sale">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/toy-sale.jpg')"
+                  aria-label="Акційні іграшки"
+                ></div>
+                <div class="category-card__footer">
+                  <span class="category-card__title-sale">Акційні</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+            </div>
+
+            </div><!-- /panel іграшки -->
+
+            <div class="categories-panel">
+              <p class="categories-showcase__sub">Кульки</p>
+            <div class="categories-grid">
+              <a class="category-card" href="pages/kulky.html">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/balloon-all.jpg')"
+                  aria-label="Усі кульки"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Усі кульки</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/kulky.html?filter=mixed">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/balloon-composition.jpg')"
+                  aria-label="Зібрані кулькові композиції"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Зібрані кулькові композиції</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+
+              <a class="category-card" href="pages/kulky.html?filter=bd">
+                <div
+                  class="category-card__image"
+                  style="--card-image: url('images/balloon-birthday.jpg')"
+                  aria-label="Акційні"
+                ></div>
+                <div class="category-card__footer">
+                  <span>Акційні</span>
+                  <span class="category-card__arrow" aria-hidden="true">›</span>
+                </div>
+              </a>
+            </div>
+            </div><!-- /panel кульки -->
+            </div><!-- /categories-panels -->
+          </div>
+        </section>
+
+        <section id="about" class="about-showcase" aria-labelledby="about-title">
+          <div class="container">
+            <div class="about-sections">
+
+              <!-- 1. Про нас -->
+              <div class="about-block about-block--intro">
+                <div class="about-block__copy">
+                  <div class="about-eyebrow">
+                    <span class="about-eyebrow__line"></span>
+                    <span class="about-eyebrow__label">Наша студія</span>
+                  </div>
+                  <h2 id="about-title" class="about-heading">Про<br>нас</h2>
+                  <p class="about-block__text">
+                    <strong>SHELYST FLOWERS</strong> — це простір квітів, де кожна
+                    композиція збирається з увагою до деталей, настрою та побажань
+                    клієнта. Ми створюємо букети, коробки з квітами та особливі
+                    подарункові рішення для важливих моментів.
+                  </p>
+                </div>
+                <div class="about-block__media" style="--img: url('images/about-1.jpg')"></div>
+              </div>
+
+              <!-- 2. Атмосфера магазину -->
+              <div class="about-block about-block--atmosphere">
+                <div class="about-block__media" style="--img: url('images/about-2.jpg')"></div>
+                <div class="about-block__card">
+                  <h3 class="about-subheading about-subheading--light">Атмосфера<br>магазину</h3>
+                  <p class="about-block__text about-block__text--light">
+                    Кожен відвідувач відчуває тут особливу теплоту — простір, де
+                    квіти не просто продаються, а де народжуються ідеї для подарунків.
+                    Ми прагнемо, щоб кожен візит залишав приємне враження й теплі спогади.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 3. Як ми починали -->
+              <div class="about-block about-block--origin">
+                <div class="about-block__copy">
+                  <h3 class="about-subheading">Як ми<br>починали</h3>
+                  <p class="about-block__text">
+                    SHELYST FLOWERS народився з пристрасті до краси та деталей.
+                    Починаючи з невеликою командою, ми поступово вибудували власний стиль —
+                    сучасний, мінімалістичний, але сповнений характеру та любові до флористики.
+                  </p>
+                  <p class="about-block__text">
+                    Наш сайт працює як стильний каталог: ви обираєте композицію та
+                    оформлюєте замовлення через особистий Telegram-чат магазину.
+                  </p>
+                </div>
+                <div class="about-block__photos-pair">
+                  <div class="about-photo" style="--img: url('images/about-3.jpg')"></div>
+                  <div class="about-photo about-photo--offset" style="--img: url('images/about-4.jpg')"></div>
+                </div>
+              </div>
+
+              <!-- 4. Наш підхід -->
+              <div class="about-block about-block--approach">
+                <div class="about-block__media" style="--img: url('images/about-5.jpg')"></div>
+                <div class="about-block__copy">
+                  <h3 class="about-subheading about-subheading--light">Наш<br>підхід</h3>
+                  <p class="about-block__text about-block__text--light">
+                    Ми любимо ніжну естетику, актуальні відтінки й сучасну флористику,
+                    тому кожен букет виглядає виразно та святково.
+                  </p>
+                  <a href="pages/kontakty.html" class="about-cta">
+                    Зв'язатись з нами
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
